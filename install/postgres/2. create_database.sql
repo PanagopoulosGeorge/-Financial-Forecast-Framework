@@ -1,0 +1,1 @@
+CREATE DATABASE finforecastdata ENCODING 'UTF8' OWNER dbtest;
