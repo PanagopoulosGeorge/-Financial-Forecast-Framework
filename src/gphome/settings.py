@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
     # MY APPS
-    # 'etl',
+    'etl',
     'institution',
     'indicator',
     'geography',

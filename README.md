@@ -96,6 +96,7 @@ This project showcases an effort to design and develop a framework for managing 
          \i '3. create_tables.sql'
          ```
 6. **Create configuration .env file**:
+       - add the database url and optionally the CONN_MAX_AGE parameter.
 7. **Run Migrations**
 
    - Navigate to the `src` directory after opening a terminal or cmd within Financial-Forecast-Framework folder:
