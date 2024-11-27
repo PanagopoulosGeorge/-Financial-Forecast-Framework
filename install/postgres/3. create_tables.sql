@@ -26,7 +26,8 @@ CREATE TABLE "unified_indicator" (
   "description" text,
   "unit" varchar(255) NOT NULL,
   "created_at" timestamp DEFAULT (now()),
-  "updated_at" timestamp DEFAULT (now())
+  "updated_at" timestamp DEFAULT (now()),
+  "population" integer
 );
 
 CREATE TABLE "area" (

@@ -33,11 +33,11 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
     # MY APPS
-    'etl',
+    # 'etl',
     'institution',
     'indicator',
     'geography',
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -86,17 +86,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASE_URL = decouple.config('DATABASE_URL', cast=str, default=None)
+DATABASE_URL = decouple.config('DATABASE_URL', default=None)
 CONN_MAX_AGE = decouple.config('CONN_MAX_AGE', cast=int, default=30)
 
-if DATABASE_URL is not None:
+if DATABASE_URL:
     import dj_database_url
     DATABASES = {
-         'default': dj_database_url.config(
-                                            default=DATABASE_URL,
-                                            conn_max_age=600,
-                                            conn_health_checks=True
-     )
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True
+        )
     }
 
 
