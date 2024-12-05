@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+
+
 class Area(models.Model):
     areaid = models.AutoField(primary_key=True, db_comment='Auto incremental')
     code = models.CharField(unique=True, max_length=255)
@@ -14,3 +16,8 @@ class Area(models.Model):
     class Meta:
         managed = False
         db_table = 'area'
+
+    def save(self, *args, **kwargs):
+        if self.population == '':
+            self.population = None
+        super().save(*args, **kwargs)

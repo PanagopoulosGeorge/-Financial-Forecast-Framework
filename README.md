@@ -86,7 +86,7 @@ This project showcases an effort to design and develop a framework for managing 
        - Run the following command after exiting the psql from previous state:
 
          ```bash
-         psql -U db2test -d finforecastdata
+         psql -U dbtest -d finforecastdata
          ```
     4. **Create tables**:
 
@@ -96,7 +96,8 @@ This project showcases an effort to design and develop a framework for managing 
          \i '3. create_tables.sql'
          ```
 6. **Create configuration .env file**:
-       - add the database url and optionally the CONN_MAX_AGE parameter.
+
+   - add the database url and optionally the CONN_MAX_AGE parameter.
 7. **Run Migrations**
 
    - Navigate to the `src` directory after opening a terminal or cmd within Financial-Forecast-Framework folder:
@@ -104,10 +105,9 @@ This project showcases an effort to design and develop a framework for managing 
      ```sh
      cd src
      ```
-   - Run the following commands to apply migrations and set up the database schema:
+   - Run the following commands to apply application migrations:
 
      ```sh
-     python manage.py makemigrations
      python manage.py migrate
      ```
 8. **Import initial institutions, indicators, and geographies.**
@@ -119,6 +119,20 @@ This project showcases an effort to design and develop a framework for managing 
      python manage.py installation_import_indicators
      python manage.py installation_import_areas
      ```
+
+9. **Create an Admin user to verify that everything was imported sucessfully.**
+
+   - Navigate to the `src` directory after opening a terminal or cmd within Financial-Forecast-Framework folder:
+
+     ```sh
+     python manage.py createsuperuser
+     ```
+   - Start the server locally to login to the Admin page of Django.
+
+     ```sh
+     python manage.py runserver
+     ```
+   - Navigate to  **http://127.0.0.1:8000/admin**
 
 ## Usage
 
