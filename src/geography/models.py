@@ -16,7 +16,8 @@ class Area(models.Model):
     class Meta:
         managed = False
         db_table = 'area'
-
+    def __str__(self) -> str:
+        return self.code
     def save(self, *args, **kwargs):
         if self.population == '':
             self.population = None

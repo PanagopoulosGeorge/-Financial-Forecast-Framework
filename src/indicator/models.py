@@ -17,7 +17,10 @@ class Indicator(models.Model):
     updated_at = models.DateTimeField(blank=True, null=True)
     abbreviation = models.CharField(
         unique=False, max_length=255, db_comment='E.x. GDP')
-
+    
+    def __str__(self) -> str:
+        return self.abbreviation
+    
     class Meta:
         managed = False
         db_table = 'indicator'
@@ -49,12 +52,15 @@ class Publishes(models.Model):
     date_published = models.DateTimeField()
     date_from = models.DateTimeField()
     date_until = models.DateTimeField()
-    value = models.IntegerField()
+    value = models.FloatField()
     is_forecast = models.CharField(max_length=1)
+    created_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'publishes'
+        verbose_name_plural = 'Publications'
+        verbose_name = 'Publication'
 
 
 class UnifiedIndicator(models.Model):

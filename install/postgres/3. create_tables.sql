@@ -50,8 +50,9 @@ CREATE TABLE "publishes" (
   "date_published" timestamp NOT NULL,
   "date_from" timestamp NOT NULL,
   "date_until" timestamp NOT NULL,
-  "value" integer NOT NULL,
-  "is_forecast" char(1) NOT NULL
+  "value" numeric NOT NULL,
+  "is_forecast" char(1) NOT NULL,
+  "created_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "mapping" (

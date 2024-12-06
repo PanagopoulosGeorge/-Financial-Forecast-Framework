@@ -4,7 +4,13 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Optional, Dict, List
 import concurrent.futures
-
+import pandas as pd
+import numpy as np
+from institution.models import Institution
+from indicator.models import Indicator, Publishes
+from geography.models import Area
+import warnings
+warnings.filterwarnings("ignore")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -123,3 +129,100 @@ class BaseAPIClient(ABC):
 
     def merge_responses(self, responses: List[requests.Response]):
         pass
+    
+    def run_load(self):
+        self.logger.info(f"Start loading data from {self.file_path_for_loading}")
+        df = pd.read_csv(self.file_path_for_loading)
+        self.logger.info(f"Data loaded from {self.file_path_for_loading}")
+        ###############################################################################################################
+        ##################################   Query institution       ##################################################
+        ###############################################################################################################
+        self.logger.info(f"Retrieving institution instance")
+        institution = df.loc[0, 'inst_instid']
+        try:
+            institution_instance = Institution.objects.get(abbreviation=institution)
+        except Institution.DoesNotExist:
+            self.logger.error(f"Could not find institution with abbreviation {institution}")
+            return
+        self.logger.info(f"Retrieved institution instance {institution}")
+        ###############################################################################################################
+        ###############################    Indicators - areas serialization             ###############################
+        ###############################################################################################################
+        self.logger.info(f"Serializing indicators and areas from database")
+        indicator_mapper = {indicator.abbreviation : indicator for indicator in Indicator.objects.filter(inst_instid=institution_instance)}
+        area_mapper = {area.code : area for area in Area.objects.all()}
+        self.logger.info(f"Serialized {len(indicator_mapper)} indicators and {len(area_mapper)} areas")
+        ###############################################################################################################
+        ###############################    Split Data frame (projections, historized)   ###############################
+        ###############################################################################################################
+        self.logger.info(f"Splitting data into projections and historical data")
+        projections = df[df['is_forecast'] == 'Y']
+        historical = df[df['is_forecast'] == 'N']
+        self.logger.info(f"Historical data: {len(historical)} records")
+        self.logger.info(f"Projections data: {len(projections)} records")
+        ###############################################################################################################
+        ###############################    Prepare projections and bulk insert   ######################################
+        ###############################################################################################################
+        try:
+            self.logger.info(f"Serializing projections data and inserting to database")
+            projections_instances = self.serialize_records(projections, institution_instance, indicator_mapper, area_mapper)
+            Publishes.objects.bulk_create(projections_instances) 
+            self.logger.info(f"Inserted {len(projections_instances)} records")
+        except Exception as e:
+            self.logger.error(f"An error occurred during projections data insertion: {e}")
+        ###############################################################################################################
+        ###############################    Prepare historized and bulk insert   ######################################
+        ###############################################################################################################
+        try:
+            self.logger.info(f"Serializing historized data and inserting to database")
+            historized_instances = self.serialize_records(historical, institution_instance, indicator_mapper, area_mapper, 
+                                                        mode='H')
+            Publishes.objects.bulk_create(historized_instances) 
+            self.logger.info(f"Inserted {len(historized_instances)} records")
+            self.logger.info(f"Data loaded successfully")
+        except Exception as e:
+            self.logger.error(f"An error occurred during historized data insertion: {e}")
+       
+    def serialize_records(self, df: pd.DataFrame, 
+                          
+                          institution: Institution,
+                          indicator_mapper: Dict,
+                          area_mapper: Dict,
+                          mode='P') -> List[Publishes]:
+        serialized_instances = []
+        if mode == 'H':
+            existing_records = Publishes.objects.filter(inst_instid=institution, is_forecast='N').values(
+                'indic_indicid', 'area_areaid', 'date_from', 'date_until', 'value')
+            existing_records_mapper = {
+                                    (record['indic_indicid'], record['area_areaid'], record['date_from'], record['date_until']) : float(record['value'])
+            for record in existing_records
+            }
+        for _, row in df.iterrows():
+            indicator = indicator_mapper.get(row['indic_indicid'], None)
+            area = area_mapper.get(row['area_areaid'], None)
+
+            if not indicator or not area:
+                continue
+                
+            if mode == 'H':
+                key_record = (indicator.indicid, area.areaid, pd.to_datetime(row['date_from']), pd.to_datetime(row['date_until']))
+                if key_record in existing_records_mapper:
+                    if existing_records_mapper[key_record] == float(row['value']):
+                        # self.logger.info("Skipping record")
+                        continue  
+            
+            instance = Publishes(
+                inst_instid = institution,
+                indic_indicid = indicator,
+                area_areaid = area,
+                date_published=row['date_published'],
+                date_from=row['date_from'],
+                date_until=row['date_until'],
+                value=row['value'],
+                is_forecast=row['is_forecast'],
+                created_at=pd.Timestamp.now()
+            )
+            serialized_instances.append(instance)
+        self.logger.info(f"Serialized {len(serialized_instances)} records")
+        return serialized_instances
+    
