@@ -1,4 +1,6 @@
 src/etl/management/commands/data/oecd/*.csv
+src/etl/management/commands/data/imf/*.csv
+src/etl/management/commands/data/imf/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

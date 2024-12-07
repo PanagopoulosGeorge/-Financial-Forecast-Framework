@@ -12,13 +12,13 @@ from institution.models import Institution
 OECD_HEADERS = {
     'Accept': 'application/vnd.sdmx.data+csv; charset=utf-8; version=2'
 }
-OECD_ENDPOINT = "https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO"
+OECD_ENDPOINT_LAST = "https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO"
 OECD_PARAMS = {}
 
 
 class OECDClient(BaseAPIClient):
     def __init__(self, mode='t'):
-        super().__init__(base_endpoint=OECD_ENDPOINT,
+        super().__init__(base_endpoint=OECD_ENDPOINT_LAST,
                          headers=OECD_HEADERS, params=OECD_PARAMS)
         self.logger.info("OECD API client initialized")
         self.mode = mode
@@ -145,8 +145,16 @@ class OECDClient(BaseAPIClient):
         return self.get_last_update() >= self.OECD_upload_date
     
     def get_last_update(self) -> Optional[str]:
-        institution_id = Institution.objects.get(abbreviation=self.institution)
-        last_update = Publishes.objects.filter(inst_instid=institution_id).latest('date_published').date_published
+        try:
+            institution_id = Institution.objects.get(abbreviation=self.institution)
+        except Institution.DoesNotExist:
+            self.logger.error(f"Institution {self.institution} does not exist")
+            return "0000"
+        try:
+            last_update = Publishes.objects.filter(inst_instid=institution_id).latest('date_published').date_published
+        except Publishes.DoesNotExist:
+            self.logger.info(f"No data found for {self.institution}")
+            return "0000"
         last_update_date = last_update.__str__().split(' ')[0]
         return last_update_date
     

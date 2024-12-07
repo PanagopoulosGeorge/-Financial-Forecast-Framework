@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from .include.oecd import OECDClient
+from .include.imf import IMFClient
 
 
 class Command(BaseCommand):
@@ -7,7 +8,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--mode', type=str,
-                            help='Mode to run the ETL process')
+                            help='Mode to run the ETL process (t, e, l, etl for full process)')
         parser.add_argument('--source', type=str,
                             help='Run ETL process for a specific source')
         
@@ -23,6 +24,10 @@ class Command(BaseCommand):
             print("Running ETL for OECD")
             oecd_client = OECDClient(mode)
             oecd_client.run()
-        if source == 'imf':
+        elif source == 'imf':
             print("Running ETL for IMF")
+            imf_client = IMFClient(mode)
+            imf_client.run()
+        else:
+            raise CommandError("Source does not exist")
         
