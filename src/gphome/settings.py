@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-px-$=i3uwbl8euxd%46ixeu#r&!*c)jl5o!nn+6@ga(o#r3bo1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = decouple.config('DEBUG', cast=bool, default=True)
 
 ALLOWED_HOSTS = [decouple.config('HOST', default='localhost')]
 
