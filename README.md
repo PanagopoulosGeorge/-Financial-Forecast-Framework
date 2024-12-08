@@ -86,7 +86,7 @@ This project showcases an effort to design and develop a framework for managing 
        - Run the following command after exiting the psql from previous state:
 
          ```bash
-         psql -U dbtest -d finforecastdata
+         psql -U forecastsdbuser -d forecastsdb
          ```
     4. **Create tables**:
 
@@ -95,7 +95,7 @@ This project showcases an effort to design and develop a framework for managing 
          ```sql
          \i '3. create_tables.sql'
          ```
-6. **Create configuration .env file**:
+6. **Create configuration .env file within Financial-Forecast-Framework folder**:
 
    - add the database url and optionally the CONN_MAX_AGE parameter.
 7. **Run Migrations**
@@ -119,7 +119,6 @@ This project showcases an effort to design and develop a framework for managing 
      python manage.py installation_import_indicators
      python manage.py installation_import_areas
      ```
-
 9. **Create an Admin user to verify that everything was imported sucessfully.**
 
    - Navigate to the `src` directory after opening a terminal or cmd within Financial-Forecast-Framework folder:
