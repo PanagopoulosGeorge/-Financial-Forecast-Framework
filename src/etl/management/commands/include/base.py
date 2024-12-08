@@ -166,7 +166,7 @@ class BaseAPIClient(ABC):
         try:
             self.logger.info(f"Serializing projections data and inserting to database")
             projections_instances = self.serialize_records(projections, institution_instance, indicator_mapper, area_mapper)
-            Publishes.objects.bulk_create(projections_instances) 
+            Publishes.objects.bulk_create(projections_instances, batch_size=1000) 
             self.logger.info(f"Inserted {len(projections_instances)} records")
         except Exception as e:
             self.logger.error(f"An error occurred during projections data insertion: {e}")
@@ -177,7 +177,7 @@ class BaseAPIClient(ABC):
             self.logger.info(f"Serializing historized data and inserting to database")
             historized_instances = self.serialize_records(historical, institution_instance, indicator_mapper, area_mapper, 
                                                         mode='H')
-            Publishes.objects.bulk_create(historized_instances) 
+            Publishes.objects.bulk_create(historized_instances, batch_size=1000) 
             self.logger.info(f"Inserted {len(historized_instances)} records")
             self.logger.info(f"Data loaded successfully")
         except Exception as e:

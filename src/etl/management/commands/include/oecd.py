@@ -153,7 +153,7 @@ class OECDClient(BaseAPIClient):
         try:
             last_update = Publishes.objects.filter(inst_instid=institution_id).latest('date_published').date_published
         except Publishes.DoesNotExist:
-            self.logger.info(f"No data found for {self.institution}")
+            self.logger.info(f"No data found for {self.institution} in database")
             return "0000"
         last_update_date = last_update.__str__().split(' ')[0]
         return last_update_date
