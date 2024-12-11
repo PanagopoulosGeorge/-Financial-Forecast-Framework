@@ -25,9 +25,7 @@ SECRET_KEY = 'django-insecure-px-$=i3uwbl8euxd%46ixeu#r&!*c)jl5o!nn+6@ga(o#r3bo1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = decouple.config('DEBUG', cast=bool, default=True)
 
-ALLOWED_HOSTS = [decouple.config('HOST', default='localhost')]
-
-
+ALLOWED_HOSTS = [decouple.config('HOST', default='127.0.0.1')]
 
 # Application definition
 
@@ -136,11 +134,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_BASE_DIR = BASE_DIR / 'staticfiles'
+STATICFILES_BASE_DIR.mkdir(exist_ok=True)
+STATICFILES_VENDOR_DIR = STATICFILES_BASE_DIR / 'vendors'
+
+# source for python manage.py collectstatic
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    STATICFILES_BASE_DIR
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# output for python manage.py collectstatic
+# local cdn -> prod cdn to be
+STATIC_ROOT = BASE_DIR.parent / 'local-cdn'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
