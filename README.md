@@ -126,14 +126,24 @@ This project showcases an effort to design and develop a framework for managing 
      ```sh
      python manage.py createsuperuser
      ```
-   - Start the server locally to login to the Admin page of Django.
-
-     ```sh
-     python manage.py runserver
-     ```
-   - Navigate to  **http://127.0.0.1:8000/admin**
 
 ## Usage
+
+Once the framework is installed and the setup is complete, you can start running the ETL process, and analyzing forecasts from the Admin UI. Below are the key usage instructions:
+
+### 1. Log in to the Admin Interface
+
+- Start the server:  
+
+`python manage.py runserver`
+
+### 2. Run the ETL Process
+
+Use the custom management command to extract, transform, and load data from external sources.
+
+`python manage.py etl --mode <mode> --source <source>`
+
+
 
 ## Project Structure
 
