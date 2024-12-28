@@ -1,0 +1,9 @@
+measure,2022,2023,2024,Sep. 2023,Sep. 2024,2027,indicator,2023 Q2,2024 Q2,Aug. 2023,Aug. 2024
+Mean point estimate,8.3,5.8,2.4,4.8,2.4,2.2,HICP_MPE,,,,
+Standard deviation,0.3,1.4,0.9,1.5,1.2,0.7,HICP_STD,,,,
+Mean point estimate,4.0,3.9,2.6,3.4,2.4,2.1,CHICP_MPE,,,,
+Standard deviation,0.4,1.0,0.9,1.1,0.9,0.7,CHICP_STD,,,,
+Mean point estimate,3.0,0.1,1.6,,,1.4,RGDP_MPE,-0.5,1.5,,
+Standard deviation,0.2,0.7,0.4,,,0.3,RGDP_STD,1.0,0.5,,
+Mean point estimate,6.8,7.1,7.0,,,6.6,UR_MPE,,,7.1,6.9
+Standard deviation,0.1,0.4,0.5,,,0.5,UR_STD,,,0.4,0.4

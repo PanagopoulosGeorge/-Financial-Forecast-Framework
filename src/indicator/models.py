@@ -61,6 +61,7 @@ class Publishes(models.Model):
         db_table = 'publishes'
         verbose_name_plural = 'Publications'
         verbose_name = 'Publication'
+        ordering = ['-created_at']
 
 
 class UnifiedIndicator(models.Model):

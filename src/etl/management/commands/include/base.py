@@ -72,6 +72,24 @@ class BaseAPIClient(ABC):
         logger.addHandler(handler)
         return logger
 
+    def run(self):
+        if self.mode == 'etl':
+            if self.database_up_to_date():
+                self.logger.info("Database is up-to-date. Exiting ETL process")
+                return
+            self.run_extract()
+            self.run_transform()
+            self.run_load()
+        elif self.mode == 'e':
+            self.run_extract()
+            return 
+        elif self.mode == 't':
+            self.run_transform()
+        elif self.mode == 'l':
+            self.run_load()
+        else:
+            raise ValueError("Invalid mode. Choose from 'etl' or 'extract'")
+
     def download_local(
         self,
         out_path: Optional[Path] = None,
@@ -170,6 +188,7 @@ class BaseAPIClient(ABC):
             self.logger.info(f"Inserted {len(projections_instances)} records")
         except Exception as e:
             self.logger.error(f"An error occurred during projections data insertion: {e}")
+            return
         ###############################################################################################################
         ###############################    Prepare historized and bulk insert   ######################################
         ###############################################################################################################
@@ -182,7 +201,8 @@ class BaseAPIClient(ABC):
             self.logger.info(f"Data loaded successfully")
         except Exception as e:
             self.logger.error(f"An error occurred during historized data insertion: {e}")
-       
+            return
+        
     def serialize_records(self, df: pd.DataFrame, 
                           
                           institution: Institution,
@@ -226,3 +246,5 @@ class BaseAPIClient(ABC):
         self.logger.info(f"Serialized {len(serialized_instances)} records")
         return serialized_instances
     
+    def database_up_to_date(self):
+        return False

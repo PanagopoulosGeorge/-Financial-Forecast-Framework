@@ -6,3 +6,4 @@ requests
 pandas
 openpyxl
 whitenoise
+lxml

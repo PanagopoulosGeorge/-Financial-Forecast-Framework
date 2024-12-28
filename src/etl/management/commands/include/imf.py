@@ -60,21 +60,6 @@ class IMFClient(BaseAPIClient):
         df.to_csv(self.file_path_for_loading, index=False)
         self.logger.info("Data transformed and saved to local file")
 
-    def run(self):
-        if self.mode == 'etl':
-            self.run_extract()
-            self.run_transform()
-            self.run_load()
-        elif self.mode == 'e':
-            self.run_extract()
-            return 
-        elif self.mode == 't':
-            self.run_transform()
-        elif self.mode == 'l':
-            self.run_load()
-        else:
-            raise ValueError("Invalid mode. Choose from 'etl' or 'extract'")
-
     def run_extract(self):
         responses = self._get_data_concurrent()
         data = self.merge_responses(responses)

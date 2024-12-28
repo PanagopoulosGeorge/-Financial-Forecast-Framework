@@ -1,0 +1,212 @@
+[
+    {
+        "model": "indicator.indicator",
+        "pk": 291,
+        "fields": {
+            "inst_instid": 3,
+            "name": "Real GDP (%)",
+            "group": "",
+            "description": "Real GDP percentage change for the American Economy",
+            "unit": "percentage",
+            "created_at": "2024-12-15T14:32:26",
+            "updated_at": "2024-12-15T14:32:32",
+            "abbreviation": "RGDP"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 292,
+        "fields": {
+            "inst_instid": 3,
+            "name": "Unemployment Rate (%)",
+            "group": "",
+            "description": "Unemployment Rate percent change for the American economy",
+            "unit": "percentage",
+            "created_at": "2024-12-15T14:38:11",
+            "updated_at": "2024-12-15T14:38:12",
+            "abbreviation": "UR"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 293,
+        "fields": {
+            "inst_instid": 3,
+            "name": "Payrolls (000s/month)",
+            "group": "",
+            "description": "Payrolls (000s/month) show the average monthly change in jobs, counted in thousands. Positive numbers mean job growth, while negative numbers mean job losses.",
+            "unit": "000s/month",
+            "created_at": "2024-12-15T14:40:26",
+            "updated_at": "2024-12-15T14:40:27",
+            "abbreviation": "PL"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 294,
+        "fields": {
+            "inst_instid": 3,
+            "name": "Headline CPI",
+            "group": "",
+            "description": "Headline CPI measuse: Median Short-Run and Long-Run Projections for Inflation (Annualized Percentage Points)",
+            "unit": "percentage",
+            "created_at": "2024-12-19T17:42:43",
+            "updated_at": "2024-12-19T17:42:44",
+            "abbreviation": "HCPI"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 295,
+        "fields": {
+            "inst_instid": 3,
+            "name": "Core CPI",
+            "group": "",
+            "description": "Core CPI measuse: Median Short-Run and Long-Run Projections for Inflation (Annualized Percentage Points)",
+            "unit": "percentage",
+            "created_at": "2024-12-19T17:44:18",
+            "updated_at": "2024-12-19T17:44:19",
+            "abbreviation": "CCPI"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 296,
+        "fields": {
+            "inst_instid": 3,
+            "name": "Headline PCE",
+            "group": "",
+            "description": "Headline PCE measuse: Median Short-Run and Long-Run Projections for Inflation (Annualized Percentage Points)",
+            "unit": "percentage",
+            "created_at": "2024-12-19T17:45:03",
+            "updated_at": "2024-12-19T17:45:04",
+            "abbreviation": "HPCE"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 297,
+        "fields": {
+            "inst_instid": 3,
+            "name": "Core PCE",
+            "group": "",
+            "description": "Core PCE measuse: Median Short-Run and Long-Run Projections for Inflation (Annualized Percentage Points)",
+            "unit": "percentage",
+            "created_at": "2024-12-19T17:45:42",
+            "updated_at": "2024-12-19T17:45:44",
+            "abbreviation": "CPCE"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 298,
+        "fields": {
+            "inst_instid": 4,
+            "name": "HICP Inflation (Mean point estimate)",
+            "group": "",
+            "description": "Inflation is defined as the year on year percentage change in the euro area all items Harmonised Index of Consumer Prices (HICP), as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:11:40",
+            "updated_at": "2024-12-28T09:11:41",
+            "abbreviation": "HICP_MPE"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 299,
+        "fields": {
+            "inst_instid": 4,
+            "name": "HICP Inflation (Standard deviation)",
+            "group": "",
+            "description": "Inflation is defined as the year on year percentage change in the euro area all items Harmonised Index of Consumer Prices (HICP), as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:13:18",
+            "updated_at": "2024-12-28T09:13:19",
+            "abbreviation": "HICP_STD"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 300,
+        "fields": {
+            "inst_instid": 4,
+            "name": "Core HICP Inflation (Mean point estimate)",
+            "group": "",
+            "description": "Core inflation is defined as the year on year percentage change in the euro area HICP special aggregate ‘all items excluding energy, food, alcohol and tobacco’, as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:16:42",
+            "updated_at": "2024-12-28T09:16:43",
+            "abbreviation": "CHICP_MPE"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 301,
+        "fields": {
+            "inst_instid": 4,
+            "name": "Core HICP Inflation (Standard deviation)",
+            "group": "",
+            "description": "Core inflation is defined as the year on year percentage change in the euro area HICP special aggregate ‘all items excluding energy, food, alcohol and tobacco’, as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:17:41",
+            "updated_at": "2024-12-28T09:17:42",
+            "abbreviation": "CHICP_STD"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 302,
+        "fields": {
+            "inst_instid": 4,
+            "name": "Real GDP growth (Mean point estimate)",
+            "group": "",
+            "description": "Real GDP growth is defined as year on year percentage change of real GDP (i.e. in volumes) in the euro area , according to the standardised European System of national and regional Accounts 2010 definition, as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:19:11",
+            "updated_at": "2024-12-28T09:19:13",
+            "abbreviation": "RGDP_MPE"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 303,
+        "fields": {
+            "inst_instid": 4,
+            "name": "Real GDP growth (Standard deviation)",
+            "group": "",
+            "description": "Real GDP growth is defined as year on year percentage change of real GDP (i.e. in volumes) in the euro area , according to the standardised European System of national and regional Accounts 2010 definition, as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:20:09",
+            "updated_at": "2024-12-28T09:20:10",
+            "abbreviation": "RGDP_STD"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 304,
+        "fields": {
+            "inst_instid": 4,
+            "name": "Unemployment rate (Mean point estimate)",
+            "group": "",
+            "description": "The unemployment rate is defined as the number of unemployed, according to the ILO's definition, as a percentage of the labour force, as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:21:20",
+            "updated_at": "2024-12-28T09:21:21",
+            "abbreviation": "UR_MPE"
+        }
+    },
+    {
+        "model": "indicator.indicator",
+        "pk": 305,
+        "fields": {
+            "inst_instid": 4,
+            "name": "Unemployment rate (Standard deviation)",
+            "group": "",
+            "description": "The unemployment rate is defined as the number of unemployed, according to the ILO's definition, as a percentage of the labour force, as published by Eurostat (https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en).",
+            "unit": "percentage",
+            "created_at": "2024-12-28T09:22:11",
+            "updated_at": "2024-12-28T09:22:13",
+            "abbreviation": "UR_STD"
+        }
+    }
+]

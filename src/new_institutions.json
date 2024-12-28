@@ -1,0 +1,28 @@
+[
+    {
+        "model": "institution.institution",
+        "pk": 3,
+        "fields": {
+            "abbreviation": "FRBP",
+            "name": "Federal Reserve Bank of Philadelphia",
+            "description": "The Federal Reserve System includes 12 independent regional Reserve Banks located across the U.S. and the Federal Reserve Board of Governors in Washington, D.C. The Philadelphia Fed is the home of the Federal Reserve’s Third District, serving Delaware, southern New Jersey, and eastern and central Pennsylvania.",
+            "url": "https://www.philadelphiafed.org/",
+            "type": "Bank",
+            "country": "US",
+            "created_at": "2024-12-15T14:28:06"
+        }
+    },
+    {
+        "model": "institution.institution",
+        "pk": 4,
+        "fields": {
+            "abbreviation": "ECB",
+            "name": "European Central Bank",
+            "description": "The ECB is the central bank of the European Union countries which use the euro. Our main task is to maintain price stability. We do this by making sure that inflation remains low, stable and predictable. In this way, we seek to help you plan your saving and spending.",
+            "url": "https://www.ecb.europa.eu/ecb/",
+            "type": "Bank",
+            "country": "EU",
+            "created_at": "2024-12-27T16:20:05"
+        }
+    }
+]

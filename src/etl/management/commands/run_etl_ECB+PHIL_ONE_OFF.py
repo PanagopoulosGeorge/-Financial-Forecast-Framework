@@ -3,7 +3,7 @@ from .include.oecd import OECDClient
 from .include.imf import IMFClient
 from .include.philadephia import PhiladelphiaClient
 from .include.ecb import ECBClient
-
+import time
 
 class Command(BaseCommand):
     help = 'Run ETL process for each data source'
@@ -21,10 +21,7 @@ class Command(BaseCommand):
             raise CommandError("Invalid mode. Use 't', 'e', 'l', or 'etl'")
         if source not in ('oecd', 'imf', 'philadelphia', 'ecb'):
             raise CommandError("Invalid source. Use 'oecd' or 'imf' or 'philadelphia' or 'ecb'")
-        with open('year.txt', 'r') as f:
-            year = f.read()
-        with open('quarter.txt', 'r') as f:
-            quarter = f.read()
+        
         if source == 'oecd':
             print("Running ETL for OECD")
             oecd_client = OECDClient(mode)
@@ -35,15 +32,33 @@ class Command(BaseCommand):
             imf_client.run()
         elif source == 'philadelphia':
             print("Running ETL for Philadelphia")
-            url = f'https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/spf-q{quarter}-{year}'
-            philly_client = PhiladelphiaClient(url, mode)
-            philly_client.run()
-
+            start_year = 2020
+            end_year = 2024
+            start_quarter = 1
+            end_quarter = 4
+            for year in range(start_year, end_year+1):
+                for quarter in range(start_quarter, end_quarter+1):
+                    url = f'https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/spf-q{quarter}-{year}'
+                    philly_client = PhiladelphiaClient(url, mode)
+                    philly_client.run()
+                    time.sleep(2)
+                    self.stdout.write(self.style.SUCCESS(f"Successfully extracted data for {year} Q{quarter}"))
+                    time.sleep(2)
+            
         elif source == 'ecb':
             print("Running ETL for ECB")
-            url = f'https://www.ecb.europa.eu/stats/ecb_surveys/survey_of_professional_forecasters/html/table_3_{year}q{quarter}.en.html'
-            ecb_client = ECBClient(url, mode)
-            ecb_client.run()
+            start_year = 2020
+            end_year = 2024
+            start_quarter = 1
+            end_quarter = 4
+            for year in range(start_year, end_year+1):
+                for quarter in range(start_quarter, end_quarter+1):
+                    url = f'https://www.ecb.europa.eu/stats/ecb_surveys/survey_of_professional_forecasters/html/table_3_{year}q{quarter}.en.html'
+                    ecb_client = ECBClient(url, mode)
+                    ecb_client.run()
+                    time.sleep(2)
+                    self.stdout.write(self.style.SUCCESS(f"Successfully extracted data for {year} Q{quarter}"))
+                    time.sleep(2)
         else:
             raise CommandError("Source does not exist")
         

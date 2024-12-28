@@ -1,5 +1,4 @@
 from .base import BaseAPIClient
-from typing import Dict, List
 import requests
 from pathlib import Path
 import pandas as pd
@@ -102,25 +101,6 @@ class OECDClient(BaseAPIClient):
         except Exception as e:
             self.logger.error(f"Error parsing date {date}: {e}")
             raise
-
-    def run(self):
-        if self.mode == 'etl':
-            if self.database_up_to_date():
-                self.logger.info(
-                    "Database is up-to-date. Exiting ETL process")
-                return
-            self.run_extract()
-            self.run_transform()
-            self.run_load()
-        elif self.mode == 'e':
-            self.run_extract()
-            return 
-        elif self.mode == 't':
-            self.run_transform()
-        elif self.mode == 'l':
-            self.run_load()
-        else:
-            raise ValueError("Invalid mode. Choose from 'etl' or 'extract'")
 
     def run_extract(self):
         responses = self._get_data_concurrent()

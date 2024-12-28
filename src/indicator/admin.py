@@ -7,6 +7,8 @@ from .models import Indicator, Mapping, Publishes, UnifiedIndicator
 class IndicatorAdmin(admin.ModelAdmin):
     list_display = ['inst_instid', 'abbreviation',
                     'name', 'unit', 'created_at', 'updated_at']
+    search_fields = ['abbreviation__icontains',
+                    'name__icontains', 'unit__icontains']
 
 
 @admin.register(Mapping)
@@ -17,7 +19,7 @@ class MappingAdmin(admin.ModelAdmin):
 class PublishesAdmin(admin.ModelAdmin):
     list_display = ['get_institution_name', 'get_indicator_symbol', 'get_indicator_name', 'get_publication_value', 
                     'get_date_from', 'get_date_until', 'get_date_published']
-
+    search_fields = ['inst_instid__abbreviation__icontains', 'indic_indicid__abbreviation__icontains']
     def get_institution_name(self, obj):
         return obj.inst_instid.abbreviation  # Assuming inst_instid is a ForeignKey to Institution model
 
